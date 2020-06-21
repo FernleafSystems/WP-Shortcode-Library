@@ -2,11 +2,11 @@
 
 namespace FernleafSystems\Wordpress\Plugin\ShortcodeLibrary\Shortcodes;
 
-class SiteName extends HtmlElement {
+class NoShortcode extends HtmlElement {
 
-	const CODE = 'SITENAME';
+	const CODE = 'NOSC';
 
 	protected function buildInnerContent( array $attrs, string $innerContent ) :string {
-		return get_bloginfo( 'name' );
+		return $innerContent;
 	}
 }

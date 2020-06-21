@@ -15,22 +15,27 @@ abstract class HtmlElement extends BaseShortcode {
 		$sElement = $attrs[ 'element' ];
 		unset( $attrs[ 'element' ] );
 
+		$aPrintAttrs = [];
 		if ( !empty( $attrs[ 'style' ] ) ) {
-			$attrs[ 'style' ] = sprintf( 'style="%s"', $attrs[ 'style' ] );
+			$aPrintAttrs[ 'style' ] = sprintf( 'style="%s"', $attrs[ 'style' ] );
 		}
 		if ( !empty( $attrs[ 'id' ] ) ) {
-			$attrs[ 'id' ] = sprintf( 'id="%s"', $attrs[ 'id' ] );
+			$aPrintAttrs[ 'id' ] = sprintf( 'id="%s"', $attrs[ 'id' ] );
 		}
 		if ( !empty( $attrs[ 'class' ] ) ) {
-			$attrs[ 'class' ] = sprintf( 'class="%s"', $attrs[ 'class' ] );
+			$aPrintAttrs[ 'class' ] = sprintf( 'class="%s"', $attrs[ 'class' ] );
 		}
 
 		return sprintf( '<%s %s>%s</%s>',
 			$sElement,
-			implode( ' ', array_filter( $attrs ) ),
-			$innerContent,
+			implode( ' ', $aPrintAttrs ),
+			$this->buildInnerContent( $attrs, $innerContent ),
 			$sElement
 		);
+	}
+
+	protected function buildInnerContent( array $attrs, string $innerContent ) :string {
+		return '';
 	}
 
 	protected function getDefaultAttrs() :array {

@@ -13,7 +13,6 @@ class ShortcodeLauncher {
 				$oSC->init();
 			}
 		} );
-
 	}
 
 	/**
@@ -21,7 +20,8 @@ class ShortcodeLauncher {
 	 */
 	protected function enumShortcodes() :array {
 		return [
-			new Shortcodes\SiteName()
+			new Shortcodes\SiteName(),
+			new Shortcodes\NoShortcode(),
 		];
 	}
 }
