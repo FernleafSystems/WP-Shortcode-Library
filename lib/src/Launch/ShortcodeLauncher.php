@@ -22,6 +22,7 @@ class ShortcodeLauncher {
 		return [
 			new Shortcodes\SiteName(),
 			new Shortcodes\NoShortcode(),
+			new Shortcodes\HtmlElement(),
 		];
 	}
 }

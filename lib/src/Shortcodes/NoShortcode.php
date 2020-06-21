@@ -6,7 +6,7 @@ class NoShortcode extends HtmlElement {
 
 	const CODE = 'NOSC';
 
-	protected function buildInnerContent( array $attrs, string $innerContent ) :string {
+	protected function buildInnerContent( string $innerContent ) :string {
 		return $innerContent;
 	}
 }

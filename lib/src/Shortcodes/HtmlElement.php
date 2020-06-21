@@ -2,7 +2,9 @@
 
 namespace FernleafSystems\Wordpress\Plugin\ShortcodeLibrary\Shortcodes;
 
-abstract class HtmlElement extends BaseShortcode {
+class HtmlElement extends BaseShortcode {
+
+	const CODE = 'HTML_ELEMENT';
 
 	/**
 	 * @param array  $attrs
@@ -29,13 +31,13 @@ abstract class HtmlElement extends BaseShortcode {
 		return sprintf( '<%s %s>%s</%s>',
 			$sElement,
 			implode( ' ', $aPrintAttrs ),
-			$this->buildInnerContent( $attrs, $innerContent ),
+			$this->buildInnerContent( $innerContent ),
 			$sElement
 		);
 	}
 
-	protected function buildInnerContent( array $attrs, string $innerContent ) :string {
-		return '';
+	protected function buildInnerContent(string $innerContent ) :string {
+		return do_shortcode( $innerContent );
 	}
 
 	protected function getDefaultAttrs() :array {
