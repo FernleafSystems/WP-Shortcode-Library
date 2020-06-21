@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== WordPress Shortcode Library from One Dollar Plugin ===
 Contributors: paultgoodchild
 Donate link: https://shsec.io/hx
 Tags: Shortcodes, Library, WordPress, CloudFlare Stream
