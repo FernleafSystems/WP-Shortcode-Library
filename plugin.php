@@ -1,15 +1,17 @@
 <?php
 /* 
-Plugin Name: WordPress Shortcode Library by Host Like Toast
+Plugin Name: WordPress Shortcode Library
 Plugin URI: http://www.hostliketoast.com/wordpress-resource-centre/
-Description: Collection of Shortcodes for Wordpress and a place for you to define your own. <a href="http://www.hostliketoast.com/2011/12/extending-wordpress-powerful-shortcodes/">See here for more information</a>.
+Description: Collection of Shortcodes for WordPress
 Version: 1.7
-Author: Host Like Toast
-Author URI: http://www.hostliketoast.com 
+Author: One Dollar Plugin
+Author URI: https://onedollarplugin.com
+Requires PHP: 7.0
+Recommended PHP: 7.3
 */
 
 /**
- * Copyright (c) 2015 Host Like Toast <helpdesk@hostliketoast.com>
+ * Copyright (c) 2020 One Dollar Plugin <support@icontrolwp.com>
  * All rights reserved.
  * 
  * "WordPress Shortcode Library" is distributed under the GNU General Public License, Version 2,
