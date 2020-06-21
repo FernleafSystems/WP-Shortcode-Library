@@ -10,13 +10,13 @@ abstract class BaseShortcode {
 	}
 
 	public function init() {
-		if ( !empty( static::CODE ) ) {
+		if ( !empty( static::CODE ) && !shortcode_exists( static::CODE ) ) {
 			add_shortcode( strtoupper( static::CODE ), function ( $attributes, $innerContent ) {
 				try {
 					return $this->execCode( $this->parseAttrs( $attributes ), $innerContent );
 				}
 				catch ( \Exception $oE ) {
-					return 'Shortcode "%s" has an error: '.$oE->getMessage();
+					return sprintf( 'Shortcode "%s" has an error: %s', static::CODE, $oE->getMessage() );
 				}
 			} );
 		}
@@ -39,10 +39,7 @@ abstract class BaseShortcode {
 			$attrs = [];
 		}
 
-		$attrs = array_merge(
-			$this->getDefaultAttrs(),
-			$attrs
-		);
+		$attrs = array_merge( $this->getDefaultAttrs(), $attrs );
 
 		$aMissingAttrs = array_diff_key( array_flip( $this->getRequiredAttrs() ), $attrs );
 		if ( count( $aMissingAttrs ) > 0 ) {

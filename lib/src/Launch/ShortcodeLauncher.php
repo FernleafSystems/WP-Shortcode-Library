@@ -7,7 +7,6 @@ use FernleafSystems\Wordpress\Plugin\ShortcodeLibrary\Shortcodes;
 class ShortcodeLauncher {
 
 	public function run() {
-
 		add_action( 'wp', function () {
 			foreach ( $this->enumShortcodes() as $oSC ) {
 				$oSC->init();
@@ -20,9 +19,10 @@ class ShortcodeLauncher {
 	 */
 	protected function enumShortcodes() :array {
 		return [
-			new Shortcodes\SiteName(),
-			new Shortcodes\NoShortcode(),
+			new Shortcodes\CloudflareStream(),
 			new Shortcodes\HtmlElement(),
+			new Shortcodes\NoShortcode(),
+			new Shortcodes\SiteName(),
 		];
 	}
 }
