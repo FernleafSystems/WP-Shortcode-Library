@@ -1,0 +1,34 @@
+{
+  "name":              "aptoweb/shortcode-library",
+  "description":       "AptoWeb WP: Shortcode Library",
+  "authors":           [
+    {
+      "name":     "Paul Goodchild",
+      "email":    "paul@paulgoodchild.me",
+      "homepage": "https://paulgoodchild.me"
+    }
+  ],
+  "license":           "MIT",
+  "keywords":          [
+  ],
+  "repositories":      [
+  ],
+  "config":            {
+    "platform": {
+      "php": "7.0"
+    }
+  },
+  "require":           {
+    "php":                                "7.0"
+  },
+  "require-dev":       {
+  },
+  "minimum-stability": "dev",
+  "prefer-stable":     true,
+  "autoload":          {
+    "psr-4":    {
+      "FernleafSystems\\Wordpress\\Plugin\\ShortcodeLibrary\\": "src"
+    },
+    "classmap": []
+  }
+}
