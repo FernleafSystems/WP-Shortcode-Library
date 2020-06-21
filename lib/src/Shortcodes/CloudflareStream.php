@@ -17,16 +17,7 @@ class CloudflareStream extends BaseShortcode {
 			throw new \Exception( 'No CloudFlare Stream Video ID provided' );
 		}
 
-		$player_options = implode( ' ', array_intersect(
-			[
-				'controls',
-				'preload',
-				'autoplay',
-				'loop',
-				'mute'
-			],
-			$attrs
-		) );
+		$player_options = implode( ' ', array_intersect( $this->getPlayerOptions(), $attrs ) );
 
 		if ( !empty( $attrs[ 'caption' ] ) ) {
 			$attrs[ 'caption' ] = sprintf( '<div style="text-align: center">%s</div>', $attrs[ 'caption' ] );
@@ -53,5 +44,23 @@ class CloudflareStream extends BaseShortcode {
 			'id'      => '',
 			'caption' => ''
 		];
+	}
+
+	private function getPlayerOptions() :array {
+		return [
+			'controls',
+			'preload',
+			'autoplay',
+			'loop',
+			'mute'
+		];
+	}
+
+	protected function getHelp() :string {
+		return sprintf( "Usage:\n<code>%s</code>",
+			sprintf( "[CF_STREAM id=\"video ID provided from CloudFlare Stream\"\n%s\n%s /]",
+				implode( ' ', $this->getPlayerOptions() ),
+				'caption="A Caption of your choice, if you wish"'
+			) );
 	}
 }

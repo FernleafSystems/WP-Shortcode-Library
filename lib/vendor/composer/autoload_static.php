@@ -20,11 +20,22 @@ class ComposerStaticInit18fd1aab228bb62441000a1c542e4b04
         ),
     );
 
+    public static $classMap = array (
+        'FernleafSystems\\Wordpress\\Plugin\\ShortcodeLibrary\\Launch\\ShortcodeLauncher' => __DIR__ . '/../..' . '/src/Launch/ShortcodeLauncher.php',
+        'FernleafSystems\\Wordpress\\Plugin\\ShortcodeLibrary\\Shortcodes\\BaseShortcode' => __DIR__ . '/../..' . '/src/Shortcodes/BaseShortcode.php',
+        'FernleafSystems\\Wordpress\\Plugin\\ShortcodeLibrary\\Shortcodes\\CloudflareStream' => __DIR__ . '/../..' . '/src/Shortcodes/CloudflareStream.php',
+        'FernleafSystems\\Wordpress\\Plugin\\ShortcodeLibrary\\Shortcodes\\HtmlDiv' => __DIR__ . '/../..' . '/src/Shortcodes/HtmlDiv.php',
+        'FernleafSystems\\Wordpress\\Plugin\\ShortcodeLibrary\\Shortcodes\\HtmlElement' => __DIR__ . '/../..' . '/src/Shortcodes/HtmlElement.php',
+        'FernleafSystems\\Wordpress\\Plugin\\ShortcodeLibrary\\Shortcodes\\NoShortcode' => __DIR__ . '/../..' . '/src/Shortcodes/NoShortcode.php',
+        'FernleafSystems\\Wordpress\\Plugin\\ShortcodeLibrary\\Shortcodes\\SiteName' => __DIR__ . '/../..' . '/src/Shortcodes/SiteName.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit18fd1aab228bb62441000a1c542e4b04::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit18fd1aab228bb62441000a1c542e4b04::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit18fd1aab228bb62441000a1c542e4b04::$classMap;
 
         }, null, ClassLoader::class);
     }

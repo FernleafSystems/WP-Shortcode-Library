@@ -1,11 +1,11 @@
 <?php
 /* 
 Plugin Name: WordPress Shortcode Library
-Plugin URI: http://www.hostliketoast.com/wordpress-resource-centre/
+Plugin URI: https://shsec.io/hx
 Description: Collection of Shortcodes for WordPress
-Version: 1.7
+Version: 2.0.0
 Author: One Dollar Plugin
-Author URI: https://onedollarplugin.com
+Author URI: https://shsec.io/hx
 */
 
 /**
