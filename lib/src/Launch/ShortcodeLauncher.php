@@ -20,6 +20,7 @@ class ShortcodeLauncher {
 	protected function enumShortcodes() :array {
 		return [
 			new Shortcodes\CloudflareStream(),
+			new Shortcodes\HtmlDiv(),
 			new Shortcodes\HtmlElement(),
 			new Shortcodes\NoShortcode(),
 			new Shortcodes\SiteName(),

@@ -8,14 +8,14 @@ Requires PHP: 7.0
 Recommended PHP: 7.3
 Stable tag: 2.0.0
 
-With Wordpress Shortcode Library we bring you a collection of Shortcodes we find useful to help you get more from WordPress.
+WordPress Shortcode Library is a small collection of useful shortcodes.
 
 == Description ==
 
 Currently there are 5 active shortcodes in the library: (See Changelog for updates!)
 
 [CF_STREAM/]
-Let's you embed CloudFlare Stream videos easily, with just the ID. e.g:
+Let's you embed CloudFlare Stream videos easily into WordPress posts and pages, with just the video ID. e.g:
 
 [CF_STREAM id="mycloudflarevideoid" preload controls /]
 
