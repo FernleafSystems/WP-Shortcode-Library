@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: paultgoodchild
-Donate link: http://www.hostliketoast.com/
-Tags: Shortcodes, Library, WordPress
+Donate link: https://shsec.io/hx
+Tags: Shortcodes, Library, WordPress, CloudFlare Stream
 Requires at least: 3.6
 Tested up to: 5.4
 Requires PHP: 7.0
