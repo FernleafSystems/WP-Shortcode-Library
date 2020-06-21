@@ -13,11 +13,11 @@ Recommended PHP: 7.3
 /**
  * Copyright (c) 2020 One Dollar Plugin <support@icontrolwp.com>
  * All rights reserved.
- * 
+ *
  * "WordPress Shortcode Library" is distributed under the GNU General Public License, Version 2,
  * June 1991. Copyright (C) 1989, 1991 Free Software Foundation, Inc., 51 Franklin
  * St, Fifth Floor, Boston, MA 02110, USA
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -28,40 +28,45 @@ Recommended PHP: 7.3
  * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
  */
+
+if ( @is_file( __DIR__.'/lib/vendor/autoload.php' ) ) {
+	require_once( __DIR__.'/lib/vendor/autoload.php' );
+
+	( new \FernleafSystems\Wordpress\Plugin\ShortcodeLibrary\Launch\ShortcodeLauncher() )->run();
+}
+return;
 class HLT_WordPressShortcodeLibrary {
-	
+
 	protected $aShortcodes;
 
 	public function __construct() {
-		add_action( 'wp_loaded', array( $this, 'initializeShortcodes' ) );
+		add_action( 'wp_loaded', [ $this, 'initializeShortcodes' ] );
 	}
 
 	public function initializeShortcodes() {
 
 		$aCodesMapping = $this->getShortcodeArray();
 		if ( function_exists( 'add_shortcode' ) ) {
-			foreach( $aCodesMapping as $shortcode => $function_to_call ) {
-				add_shortcode( $shortcode, array( $this, $function_to_call ) );
+			foreach ( $aCodesMapping as $shortcode => $function_to_call ) {
+				add_shortcode( $shortcode, [ $this, $function_to_call ] );
 			}
 		}
 	}
 
 	/**
-	 * @return array
+	 * @return callable[]
 	 */
 	protected function getShortcodeArray() {
-		return array(
-			'MYFIRSTSHORTCODE'	=>	'myFirstShortCode',
-			'DIVCLEAR'			=> 	'getDivClearHtml',
-			'PRINTDIV'			=> 	'getDivHtml',
-			'TWEET'				=>	'getTweetButtonHtml',
-			'SITENAME'			=>	'getBrandedSiteName',
-			'NOSC'				=>	'doNotProcessShortcode'
-		);
+		return [
+			'MYFIRSTSHORTCODE' => 'myFirstShortCode',
+			'DIVCLEAR'         => 'getDivClearHtml',
+			'PRINTDIV'         => 'getDivHtml',
+			'TWEET'            => 'getTweetButtonHtml',
+			'SITENAME'         => 'getBrandedSiteName',
+			'NOSC'             => 'doNotProcessShortcode'
+		];
 	}
-
 
 	/**
 	 * Here you can create your own Shortcode.
@@ -73,15 +78,14 @@ class HLT_WordPressShortcodeLibrary {
 	 *
 	 * 'Enter the HTML/Javascript that you want to appear'
 	 *
-	 * @param array $inaAtts
+	 * @param array  $inaAtts
 	 * @param string $insContent
 	 * @return string
 	 */
-	public function myFirstShortCode( $inaAtts = array(), $insContent = '' ) {
+	public function myFirstShortCode( $inaAtts = [], $insContent = '' ) {
 		$sReturn = 'Enter the HTML/Javascript that you want to appear';
 
 		return $sReturn;
-
 	}
 
 	/**
@@ -92,12 +96,12 @@ class HLT_WordPressShortcodeLibrary {
 	 *
 	 * This is an example of nested shortcodes.
 	 *
-	 * @param array $inaAtts
+	 * @param array  $inaAtts
 	 * @param string $sContent
 	 * @return string
 	 */
-	public function getDivClearHtml( $inaAtts = array(), $sContent = '' ) {
-		return $this->getDivHtml( array('style'=>'clear:both'), $sContent );
+	public function getDivClearHtml( $inaAtts = [], $sContent = '' ) {
+		return $this->getDivHtml( [ 'style' => 'clear:both' ], $sContent );
 	}
 
 	/**
@@ -107,28 +111,27 @@ class HLT_WordPressShortcodeLibrary {
 	 * e.g. [HTMLDIV class="my-div-class" id="my-div-id"] div content [/HTMLDIV]
 	 * gives: <div id="my-div-id" class="my-div-class"> div content </div>
 	 *
-	 * @param array $inaAtts
+	 * @param array  $inaAtts
 	 * @param string $insContent
 	 * @return string
 	 */
-	public function getDivHtml( $inaAtts = array(), $insContent = '' ) {
+	public function getDivHtml( $inaAtts = [], $insContent = '' ) {
 
 		$this->def( $inaAtts, 'class' );
 		$this->def( $inaAtts, 'id' );
 		$this->def( $inaAtts, 'style' );
-		
+
 		//Items that don't need to be printed if empty
-		$inaAtts['style'] = $this->noEmptyHtml( $inaAtts['style'], 'style' );
-		$inaAtts['id'] = $this->noEmptyHtml( $inaAtts['id'], 'id' );
-		$inaAtts['class'] = $this->noEmptyHtml( $inaAtts['class'], 'class' );
-		
-		$sReturn = '<div '.$inaAtts['style']
-					.$inaAtts['id']
-					.$inaAtts['class']
-					.'>'.do_shortcode( $insContent ).'</div>';
+		$inaAtts[ 'style' ] = $this->noEmptyHtml( $inaAtts[ 'style' ], 'style' );
+		$inaAtts[ 'id' ] = $this->noEmptyHtml( $inaAtts[ 'id' ], 'id' );
+		$inaAtts[ 'class' ] = $this->noEmptyHtml( $inaAtts[ 'class' ], 'class' );
+
+		$sReturn = '<div '.$inaAtts[ 'style' ]
+				   .$inaAtts[ 'id' ]
+				   .$inaAtts[ 'class' ]
+				   .'>'.do_shortcode( $insContent ).'</div>';
 
 		return $sReturn;
-
 	}
 
 	/**
@@ -137,84 +140,83 @@ class HLT_WordPressShortcodeLibrary {
 	 *
 	 * ID name defaults to 'brandedSiteName' but you can add your own.
 	 *
-	 * @param array $inaAtts
+	 * @param array  $inaAtts
 	 * @param string $insContent
 	 * @return string
 	 */
-	public function getBrandedSiteName( $inaAtts = array(), $insContent = '' ) {
-		
+	public function getBrandedSiteName( $inaAtts = [], $insContent = '' ) {
+
 		$this->def( $inaAtts, 'class' );
 		$this->def( $inaAtts, 'id', 'brandedSiteName' );
 		$this->def( $inaAtts, 'style' );
-		$inaAtts['style'] = $this->noEmptyHtml( $inaAtts['style'], 'style' );
-		$inaAtts['id'] = $this->noEmptyHtml( $inaAtts['id'], 'id' );
-		$inaAtts['class'] = $this->noEmptyHtml( $inaAtts['class'], 'class' );
-		
-		$sReturn = '<span '.$inaAtts['style']
-					.$inaAtts['id']
-					.$inaAtts['class']
-					.'>'.get_bloginfo('name').'</span>';
-		
+		$inaAtts[ 'style' ] = $this->noEmptyHtml( $inaAtts[ 'style' ], 'style' );
+		$inaAtts[ 'id' ] = $this->noEmptyHtml( $inaAtts[ 'id' ], 'id' );
+		$inaAtts[ 'class' ] = $this->noEmptyHtml( $inaAtts[ 'class' ], 'class' );
+
+		$sReturn = '<span '.$inaAtts[ 'style' ]
+				   .$inaAtts[ 'id' ]
+				   .$inaAtts[ 'class' ]
+				   .'>'.get_bloginfo( 'name' ).'</span>';
+
 		return $sReturn;
-	
 	}
 
 	/**
 	 * Prints a Twitter Share button for the current page.
 	 *
-	 * @param array $inaAtts
+	 * @param array  $inaAtts
 	 * @param string $insContent
 	 * @return string
 	 */
-	public function getTweetButtonHtml( $inaAtts = array(), $insContent = '' ) {
+	public function getTweetButtonHtml( $inaAtts = [], $insContent = '' ) {
 
 		$this->def( $inaAtts, 'count', 'none' );
 		$this->def( $inaAtts, 'via' );
 		$this->def( $inaAtts, 'related' );
-		
-		//Items that don't need to be printed if empty
-		$inaAtts['via'] = $this->noEmptyHtml( $inaAtts['via'], 'data-via' );
-		$inaAtts['related'] = $this->noEmptyHtml( $inaAtts['related'], 'data-related' );
 
-		$sReturn = '<a href="https://twitter.com/share" class="twitter-share-button" data-count="'.$inaAtts['count'].'"'
-						. $inaAtts['via']
-						. $inaAtts['related']
-						.'>'.'Tweet'.'</a>';
+		//Items that don't need to be printed if empty
+		$inaAtts[ 'via' ] = $this->noEmptyHtml( $inaAtts[ 'via' ], 'data-via' );
+		$inaAtts[ 'related' ] = $this->noEmptyHtml( $inaAtts[ 'related' ], 'data-related' );
+
+		$sReturn = '<a href="https://twitter.com/share" class="twitter-share-button" data-count="'.$inaAtts[ 'count' ].'"'
+				   .$inaAtts[ 'via' ]
+				   .$inaAtts[ 'related' ]
+				   .'>'.'Tweet'.'</a>';
 		$sReturn .= '<script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>';
-		
+
 		return $sReturn;
 	}
 
 	/**
 	 * Simply prevents processing of all nested shortcodes.
 	 *
-	 * @param array $inaAtts
+	 * @param array  $inaAtts
 	 * @param string $insContent
 	 * @return string
 	 */
-	public function doNotProcessShortcode( $inaAtts = array(), $insContent = '' ) {
-		
+	public function doNotProcessShortcode( $inaAtts = [], $insContent = '' ) {
+
 		$this->def( $inaAtts, 'style' );
 		$this->def( $inaAtts, 'element', 'span' );
-		
+
 		//
 		$this->noEmptyElement( $inaAtts, 'style' );
-		
-		$sElement = $inaAtts['element'];
 
-		return '<'.$sElement.$inaAtts['style'].'>'.$insContent.'</'.$sElement.'>';
+		$sElement = $inaAtts[ 'element' ];
+
+		return '<'.$sElement.$inaAtts[ 'style' ].'>'.$insContent.'</'.$sElement.'>';
 	}
 
 	/**
 	 * A helper function; not a WordPress Shortcode.
 	 *
-	 * @param $aSrc
-	 * @param $insKey
+	 * @param        $aSrc
+	 * @param        $insKey
 	 * @param string $insValue
 	 */
 	protected function def( &$aSrc, $insKey, $insValue = '' ) {
-		if ( !isset( $aSrc[$insKey] ) ) {
-			$aSrc[$insKey] = $insValue;
+		if ( !isset( $aSrc[ $insKey ] ) ) {
+			$aSrc[ $insKey ] = $insValue;
 		}
 	}
 
@@ -226,7 +228,7 @@ class HLT_WordPressShortcodeLibrary {
 	 * @return string
 	 */
 	protected function noEmptyHtml( $sCont, $sTag = '' ) {
-		return (($sCont != '')? ' '.$sTag.'="'.$sCont.'" ' : '' );
+		return ( ( $sCont != '' ) ? ' '.$sTag.'="'.$sCont.'" ' : '' );
 	}
 
 	/**
@@ -234,10 +236,9 @@ class HLT_WordPressShortcodeLibrary {
 	 * @param $insAttrKey
 	 */
 	protected function noEmptyElement( &$inaArgs, $insAttrKey ) {
-		$sAttrValue = $inaArgs[$insAttrKey];
-		$inaArgs[$insAttrKey] = ( empty($sAttrValue) ) ? '' : ' '.$insAttrKey.'="'.$sAttrValue.'"';
+		$sAttrValue = $inaArgs[ $insAttrKey ];
+		$inaArgs[ $insAttrKey ] = ( empty( $sAttrValue ) ) ? '' : ' '.$insAttrKey.'="'.$sAttrValue.'"';
 	}
-
 }
 
 $oHLT_WordPressShortcodeLibrary = new HLT_WordPressShortcodeLibrary( true );
